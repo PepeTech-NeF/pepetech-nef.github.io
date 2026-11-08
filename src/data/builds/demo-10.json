@@ -1,0 +1,12 @@
+{
+  "title": "Т-34-85",
+  "code": "DEMO-10",
+  "category": "tanks",
+  "country": "СССР",
+  "description": "",
+  "images": [
+    "/images/placeholder-2.svg",
+    "/images/placeholder-5.svg"
+  ],
+  "published": true
+}

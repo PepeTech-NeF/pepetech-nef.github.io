@@ -1,0 +1,12 @@
+{
+  "title": "Ми-24",
+  "code": "DEMO-06",
+  "category": "helicopters",
+  "country": "СССР",
+  "description": "",
+  "images": [
+    "/images/placeholder-4.svg",
+    "/images/placeholder-1.svg"
+  ],
+  "published": true
+}

@@ -1,0 +1,12 @@
+{
+  "title": "ГАЗ-66",
+  "code": "DEMO-15",
+  "category": "vehicles",
+  "country": "СССР",
+  "description": "",
+  "images": [
+    "/images/placeholder-1.svg",
+    "/images/placeholder-4.svg"
+  ],
+  "published": true
+}

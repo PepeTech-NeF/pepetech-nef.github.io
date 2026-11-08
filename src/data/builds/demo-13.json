@@ -1,0 +1,12 @@
+{
+  "title": "Yamato",
+  "code": "DEMO-13",
+  "category": "ships",
+  "country": "Япония",
+  "description": "",
+  "images": [
+    "/images/placeholder-5.svg",
+    "/images/placeholder-2.svg"
+  ],
+  "published": true
+}

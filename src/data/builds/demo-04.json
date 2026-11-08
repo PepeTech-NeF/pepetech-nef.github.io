@@ -1,0 +1,11 @@
+{
+  "title": "F-16 Fighting Falcon",
+  "code": "DEMO-04",
+  "category": "aircraft",
+  "country": "США",
+  "description": "",
+  "images": [
+    "/images/placeholder-2.svg"
+  ],
+  "published": true
+}

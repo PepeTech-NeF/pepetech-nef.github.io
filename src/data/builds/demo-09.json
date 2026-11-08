@@ -1,0 +1,11 @@
+{
+  "title": "M1 Abrams",
+  "code": "DEMO-09",
+  "category": "tanks",
+  "country": "США",
+  "description": "",
+  "images": [
+    "/images/placeholder-1.svg"
+  ],
+  "published": true
+}

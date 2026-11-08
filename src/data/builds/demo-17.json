@@ -1,0 +1,12 @@
+{
+  "title": "Сапсан",
+  "code": "DEMO-17",
+  "category": "trains",
+  "country": "Россия",
+  "description": "",
+  "images": [
+    "/images/placeholder-3.svg",
+    "/images/placeholder-6.svg"
+  ],
+  "published": true
+}
