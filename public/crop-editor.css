@@ -66,3 +66,5 @@ input[type=range]{accent-color:#eceee8;width:100%;margin:4px 0 0}
 :focus-visible{outline:2px solid #e5e6e0;outline-offset:3px}
 @media(max-width:950px){.workspace{grid-template-columns:1fr}.settings-panel{display:block}.preview-frame{max-height:none}}
 @media(max-width:600px){.wrap{width:calc(100% - 28px)}.top{height:66px}.intro{padding:36px 0 26px}.work-panel,.settings-panel{padding:16px;border-radius:13px}.panel-header{margin-bottom:16px}.preview-frame,.empty-state{min-height:230px}.dropzone{gap:7px}.drop-detail{width:100%;padding-left:31px}.foot{flex-direction:column}.button-row{flex-wrap:wrap}.outline-btn{min-width:80px}}
+
+.empty-state[hidden],.field[hidden]{display:none}
