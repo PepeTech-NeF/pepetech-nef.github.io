@@ -1,16 +1,15 @@
 ---
 import site from '../data/site.json';
 
-const categories = {
-  aircraft: 'Самолёты',
-  helicopters: 'Вертолёты',
-  tanks: 'Танки',
-  armored: 'Бронетехника',
-  ships: 'Корабли',
-  vehicles: 'Автомобили',
-  trains: 'Поезда',
-  other: 'Другое',
-};
+const categoryFiles = import.meta.glob('../data/categories/*.json', { eager: true, import: 'default' });
+const countryFiles = import.meta.glob('../data/countries/*.json', { eager: true, import: 'default' });
+const categoryEntries = Object.values(categoryFiles)
+  .filter((item) => item && item.code && item.label)
+  .sort((a, b) => (Number(a.order) || 999) - (Number(b.order) || 999) || a.label.localeCompare(b.label, 'ru'));
+const categories = Object.fromEntries(categoryEntries.map((item) => [item.code, item.label]));
+const countryLabels = Object.fromEntries(
+  Object.values(countryFiles).filter((item) => item && item.code && item.label).map((item) => [item.code, item.label]),
+);
 
 const root = import.meta.env.BASE_URL.replace(/\/$/, '');
 const assetUrl = (path) => root + '/' + String(path).replace(/^\/+/, '');
@@ -19,13 +18,16 @@ const builds = Object.values(files)
   .filter((item) => item && item.published !== false && item.title)
   .map((item) => ({
     ...item,
-    category: categories[item.category] ? item.category : 'other',
+    category: String(item.category || 'other').trim(),
     country: String(item.country ?? '').trim(),
+    countryLabel: countryLabels[String(item.country ?? '').trim()] || String(item.country ?? '').trim(),
     images: Array.isArray(item.images) ? item.images.filter(Boolean).slice(0, 2).map(assetUrl) : [],
   }))
   .sort((a, b) => a.title.localeCompare(b.title, 'ru'));
-const activeCategories = Object.keys(categories).filter((key) => builds.some((item) => item.category === key));
-const countries = [...new Set(builds.map((item) => item.country).filter(Boolean))].sort((a, b) => a.localeCompare(b, 'ru'));
+const activeCategories = categoryEntries.filter((entry) => builds.some((item) => item.category === entry.code));
+const countries = [...new Set(builds.map((item) => item.country).filter(Boolean))]
+  .map((code) => ({ code, label: countryLabels[code] || code }))
+  .sort((a, b) => a.label.localeCompare(b.label, 'ru'));
 const contacts = [
   { label: 'Discord', url: site.discord },
   { label: 'Telegram', url: site.telegram },
@@ -60,12 +62,12 @@ const contacts = [
         <div class="toolbar">
           <div class="filters" aria-label="Категории">
             <button class="filter" type="button" data-filter="all" aria-pressed="true">Все</button>
-            {activeCategories.map((category) => <button class="filter" type="button" data-filter={category} aria-pressed="false">{categories[category]}</button>)}
+            {activeCategories.map((category) => <button class="filter" type="button" data-filter={category.code} aria-pressed="false">{category.label}</button>)}
           </div>
           <div class="tools">
             {countries.length > 0 && <select class="country-select" id="country" aria-label="Страна">
               <option value="">Все страны</option>
-              {countries.map((country) => <option value={country}>{country}</option>)}
+              {countries.map((country) => <option value={country.code}>{country.label}</option>)}
             </select>}
             <label class="search">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
@@ -75,12 +77,12 @@ const contacts = [
         </div>
         <p class="results" id="results">Найдено: {builds.length}</p>
         <div class="grid" id="gallery">
-          {builds.map((item) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.code ?? "", item.country].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
+          {builds.map((item) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.code ?? "", item.countryLabel].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
             <button class="card-button" type="button" data-open disabled={!item.images.length} aria-label={"Открыть " + item.title}>
               <span class="cover">
                 {item.images.length ? <img src={item.images[0]} alt={"Техника «" + item.title + "»"} loading="lazy" decoding="async" /> : <svg class="placeholder" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 5"/></svg>}
               </span>
-              <span class="card-meta"><span class="card-title">{item.title}</span><span class="card-category">{categories[item.category]}{item.country ? ' · ' + item.country : ''}</span></span>
+              <span class="card-meta"><span class="card-title">{item.title}</span><span class="card-category">{categories[item.category] || item.category}{item.country ? ' · ' + item.countryLabel : ''}</span></span>
             </button>
             {item.description && <p class="card-description">{item.description}</p>}
           </article>)}
