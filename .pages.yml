@@ -6,7 +6,7 @@ media:
 
 content:
   - name: builds
-    label: Постройки
+    label: Техника
     type: collection
     path: src/data/builds
     format: json
@@ -14,7 +14,7 @@ content:
     exclude: [.gitkeep]
     view:
       primary: title
-      fields: [title, category, published]
+      fields: [title, category, country, published]
     fields:
       - name: title
         label: Название
@@ -29,18 +29,25 @@ content:
         required: true
         options:
           values:
-            - name: houses
-              label: Дома
-            - name: shops
-              label: Магазины
-            - name: farms
-              label: Фермы
-            - name: public
-              label: Общественные
-            - name: decor
-              label: Декорации
+            - name: aircraft
+              label: Самолёты
+            - name: helicopters
+              label: Вертолёты
+            - name: tanks
+              label: Танки
+            - name: armored
+              label: Бронетехника
+            - name: ships
+              label: Корабли
+            - name: vehicles
+              label: Автомобили
+            - name: trains
+              label: Поезда
             - name: other
               label: Другое
+      - name: country
+        label: Страна
+        type: string
       - name: description
         label: Описание
         type: text

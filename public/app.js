@@ -1,6 +1,7 @@
 
 const gallery = document.getElementById('gallery');
 const search = document.getElementById('search');
+const countrySelect = document.getElementById('country');
 const results = document.getElementById('results');
 const empty = document.getElementById('empty');
 const emptyTitle = document.getElementById('empty-title');
@@ -12,18 +13,20 @@ const normalize = (value) => value.toLocaleLowerCase('ru').trim();
 
 function applyFilters() {
   const term = normalize(search.value);
+  const selectedCountry = countrySelect?.value ?? '';
   let count = 0;
   for (const card of cards) {
-    const visible = (category === 'all' || card.dataset.category === category) && normalize(card.dataset.search).includes(term);
+    const visible = (category === 'all' || card.dataset.category === category) && (!selectedCountry || card.dataset.country === selectedCountry) && normalize(card.dataset.search).includes(term);
     card.hidden = !visible;
     if (visible) count++;
   }
   results.textContent = 'Найдено: ' + count;
   empty.hidden = count > 0;
-  emptyTitle.textContent = cards.length ? 'Ничего не найдено' : 'Пока нет построек';
-  emptyText.textContent = cards.length ? 'Попробуйте другую категорию или запрос.' : 'Здесь появятся первые работы.';
+  emptyTitle.textContent = cards.length ? 'Ничего не найдено' : 'Пока нет техники';
+  emptyText.textContent = cards.length ? 'Измените фильтры или поисковый запрос.' : 'Новые работы появятся здесь.';
 }
 search.addEventListener('input', applyFilters);
+countrySelect?.addEventListener('change', applyFilters);
 for (const filter of filters) {
   filter.addEventListener('click', () => {
     category = filter.dataset.filter;
