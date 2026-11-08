@@ -1,0 +1,11 @@
+{
+  "title": "Ферма тростника",
+  "code": "DEMO-003",
+  "category": "farms",
+  "description": "",
+  "images": [
+    "/images/placeholder-3.svg",
+    "/images/placeholder-1.svg"
+  ],
+  "published": true
+}
