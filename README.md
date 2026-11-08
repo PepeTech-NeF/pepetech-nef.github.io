@@ -1,12 +1,10 @@
-# Pepe Builds
+# PepeLand — техника
 
-Каталог построек для PepeLand.
+Каталог техники для сервера PepeLand.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Постройки — `src/data/builds/`, фотографии — `public/images/`.
-
-Редактирование: [Pages CMS](https://app.pagescms.org/).
+Каталог: `src/data/builds/`. Изображения: `public/images/`.

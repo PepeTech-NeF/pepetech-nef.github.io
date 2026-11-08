@@ -1,0 +1,11 @@
+{
+  "title": "Танк (пример)",
+  "code": "DEMO-02",
+  "category": "tanks",
+  "country": "СССР",
+  "description": "",
+  "images": [
+    "/images/placeholder-2.svg"
+  ],
+  "published": true
+}

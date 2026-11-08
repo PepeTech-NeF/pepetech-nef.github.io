@@ -1,7 +1,8 @@
 {
-  "title": "Современный дом",
-  "code": "DEMO-001",
-  "category": "houses",
+  "title": "Самолёт (пример)",
+  "code": "DEMO-01",
+  "category": "aircraft",
+  "country": "США",
   "description": "",
   "images": [
     "/images/placeholder-1.svg",
