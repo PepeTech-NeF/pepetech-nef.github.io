@@ -25,29 +25,21 @@ content:
         type: string
       - name: category
         label: Категория
-        type: select
+        type: reference
         required: true
         options:
-          values:
-            - name: aircraft
-              label: Самолёты
-            - name: helicopters
-              label: Вертолёты
-            - name: tanks
-              label: Танки
-            - name: armored
-              label: Бронетехника
-            - name: ships
-              label: Корабли
-            - name: vehicles
-              label: Автомобили
-            - name: trains
-              label: Поезда
-            - name: other
-              label: Другое
+          collection: categories
+          value: "{name}"
+          label: "{label}"
+          search: "code,label"
       - name: country
         label: Страна
-        type: string
+        type: reference
+        options:
+          collection: countries
+          value: "{name}"
+          label: "{label}"
+          search: "code,label"
       - name: description
         label: Описание
         type: text
@@ -64,6 +56,53 @@ content:
         label: Опубликовано
         type: boolean
         default: true
+  - name: categories
+    label: Категории
+    type: collection
+    path: src/data/categories
+    format: json
+    filename: "{code}.json"
+    operations:
+      rename: false
+    view:
+      primary: label
+      fields: [code, order]
+    fields:
+      - name: code
+        label: Код (латиницей)
+        type: string
+        required: true
+        description: Не меняйте код после создания записи.
+        pattern: "^[a-z0-9-]+$"
+      - name: label
+        label: Название
+        type: string
+        required: true
+      - name: order
+        label: Порядок
+        type: number
+  - name: countries
+    label: Страны
+    type: collection
+    path: src/data/countries
+    format: json
+    filename: "{code}.json"
+    operations:
+      rename: false
+    view:
+      primary: label
+      fields: [code]
+    fields:
+      - name: code
+        label: Код (латиницей)
+        type: string
+        required: true
+        description: Не меняйте код после создания записи.
+        pattern: "^[a-z0-9-]+$"
+      - name: label
+        label: Название
+        type: string
+        required: true
   - name: site
     label: Сайт
     type: file
