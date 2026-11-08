@@ -1,0 +1,121 @@
+---
+const root = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101114" />
+    <meta name="description" content="Обрезка и подготовка фотографий для портфолио PepeTech." />
+    <title>Редактор изображений — PepeTech</title>
+    <link rel="stylesheet" href={root + '/crop-editor.css'} />
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap top-inner">
+        <a class="brand" href={root + '/'}><span class="mark">P</span> PepeTech <span class="brand-sub">/ Фото</span></a>
+        <a class="back" href={root + '/'}>К портфолио</a>
+      </div>
+    </header>
+    <main class="wrap">
+      <div class="intro">
+        <p class="eyebrow">Инструменты / Изображения</p>
+        <h1>Подготовка фотографий</h1>
+        <p class="lead">Обрежьте скриншот, настройте размер и сохраните оптимизированный файл для Pages CMS. Фотография не покидает ваш браузер.</p>
+      </div>
+      <div class="workspace">
+        <section class="work-panel" aria-labelledby="preview-heading">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">01 / Предпросмотр</p>
+              <h2 id="preview-heading">Кадрирование</h2>
+            </div>
+            <span class="status-chip" id="resolution">Нет файла</span>
+          </div>
+          <label class="dropzone" id="dropzone" for="file">
+            <input id="file" type="file" accept="image/png,image/jpeg,image/webp,image/avif" />
+            <span class="dropicon" aria-hidden="true">＋</span>
+            <span class="drop-main">Выберите изображение</span>
+            <span class="drop-detail">или перетащите PNG, JPG, WebP, AVIF сюда</span>
+          </label>
+          <div class="preview-frame">
+            <div class="empty-state" id="empty">
+              <div class="placeholder-icon" aria-hidden="true">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 5"/></svg>
+              </div>
+              <span>Здесь появится фотография</span>
+            </div>
+            <canvas id="preview" width="960" height="540" hidden aria-label="Предпросмотр обрезки изображения"></canvas>
+          </div>
+          <p class="hint" id="help">Перетаскивайте изображение внутри кадра. Колёсико мыши или ползунок меняют масштаб.</p>
+          <p class="file-info" id="file-info" aria-live="polite"></p>
+        </section>
+        <section class="settings-panel" aria-label="Настройки изображения">
+          <div class="panel-header">
+            <div>
+              <p class="panel-kicker">02 / Настройки</p>
+              <h2>Экспорт</h2>
+            </div>
+          </div>
+          <fieldset id="controls" disabled>
+            <div class="field">
+              <label for="aspect">Соотношение сторон</label>
+              <select id="aspect">
+                <option value="16:9">16:9 — широкий кадр</option>
+                <option value="3:2">3:2 — фотография</option>
+                <option value="4:3">4:3 — стандартное</option>
+                <option value="1:1">1:1 — квадрат</option>
+                <option value="original">Исходное</option>
+              </select>
+            </div>
+            <div class="field">
+              <div class="label-row"><label for="zoom">Масштаб</label><output id="zoom-value" for="zoom">100%</output></div>
+              <input type="range" id="zoom" min="100" max="300" step="5" value="100" />
+            </div>
+            <div class="field">
+              <label>Положение</label>
+              <div class="button-row">
+                <button type="button" class="outline-btn" id="rotate-left" aria-label="Повернуть влево">↶ На 90°</button>
+                <button type="button" class="outline-btn" id="rotate-right" aria-label="Повернуть вправо">↷ На 90°</button>
+                <button type="button" class="outline-btn" id="flip">Отразить</button>
+              </div>
+              <button type="button" class="reset-btn" id="reset">Сбросить обрезку</button>
+            </div>
+            <div class="divider"></div>
+            <div class="field">
+              <label for="width">Ширина готового файла</label>
+              <select id="width">
+                <option value="1920">1920 px — высокое качество</option>
+                <option value="1600" selected>1600 px — рекомендуется</option>
+                <option value="1280">1280 px — компактно</option>
+                <option value="960">960 px — миниатюра</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="format">Формат</label>
+              <select id="format">
+                <option value="image/webp">WebP — рекомендуется</option>
+                <option value="image/jpeg">JPEG</option>
+                <option value="image/png">PNG</option>
+              </select>
+            </div>
+            <div class="field" id="quality-field">
+              <div class="label-row"><label for="quality">Качество</label><output id="quality-value" for="quality">82%</output></div>
+              <input type="range" id="quality" min="45" max="95" value="82" step="1" />
+            </div>
+            <button type="button" class="save-btn" id="download">Скачать изображение</button>
+          </fieldset>
+          <p id="status" class="status" role="status" aria-live="polite">Выберите изображение для начала.</p>
+          <div class="next-step">
+            <p class="panel-kicker">03 / Публикация</p>
+            <p>Скачайте файл и загрузите его в поле «Фотографии» при создании карточки техники.</p>
+            <a href="https://app.pagescms.org/pepetech-nef/pepetech-nef.github.io/main/collection/builds" target="_blank" rel="noopener noreferrer" class="cms-link">Открыть Pages CMS ↗</a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="wrap foot"><span>PepeTech / Инструменты</span><span>Без загрузки на сервер</span></footer>
+    <script is:inline src={root + '/crop-editor.js'} defer></script>
+  </body>
+</html>
