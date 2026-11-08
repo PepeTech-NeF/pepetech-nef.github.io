@@ -1,10 +1,10 @@
-# PepeLand — техника
+# PepeLand — портфолио
 
-Каталог техники для сервера PepeLand.
+Портфолио техники для сервера PepeLand.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Каталог: `src/data/builds/`. Изображения: `public/images/`.
+Работы: `src/data/builds/`. Изображения: `public/images/`.
