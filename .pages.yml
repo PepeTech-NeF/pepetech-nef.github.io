@@ -1,0 +1,83 @@
+media:
+  input: public/images
+  output: /images
+  rename: safe
+  extensions: [jpg, jpeg, png, webp, avif]
+
+content:
+  - name: builds
+    label: Постройки
+    type: collection
+    path: src/data/builds
+    format: json
+    filename: "{primary}.json"
+    exclude: [.gitkeep]
+    view:
+      primary: title
+      fields: [title, category, published]
+    fields:
+      - name: title
+        label: Название
+        type: string
+        required: true
+      - name: code
+        label: Номер
+        type: string
+      - name: category
+        label: Категория
+        type: select
+        required: true
+        options:
+          values:
+            - name: houses
+              label: Дома
+            - name: shops
+              label: Магазины
+            - name: farms
+              label: Фермы
+            - name: public
+              label: Общественные
+            - name: decor
+              label: Декорации
+            - name: other
+              label: Другое
+      - name: description
+        label: Описание
+        type: text
+      - name: images
+        label: Фотографии
+        type: image
+        required: true
+        options:
+          multiple:
+            min: 1
+            max: 2
+          extensions: [jpg, jpeg, png, webp, avif]
+      - name: published
+        label: Опубликовано
+        type: boolean
+        default: true
+  - name: site
+    label: Сайт
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - name: brand
+        label: Название
+        type: string
+      - name: heading
+        label: Заголовок
+        type: string
+      - name: description
+        label: Описание
+        type: text
+      - name: discord
+        label: Ссылка Discord
+        type: string
+      - name: telegram
+        label: Ссылка Telegram
+        type: string
+      - name: title
+        label: Заголовок вкладки
+        type: string

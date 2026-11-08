@@ -1,0 +1,11 @@
+{
+  "title": "Современный дом",
+  "code": "DEMO-001",
+  "category": "houses",
+  "description": "",
+  "images": [
+    "/images/placeholder-1.svg",
+    "/images/placeholder-2.svg"
+  ],
+  "published": true
+}
