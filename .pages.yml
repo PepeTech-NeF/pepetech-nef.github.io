@@ -114,20 +114,30 @@ content:
     format: json
     fields:
       - name: brand
-        label: Название
+        label: Название проекта
         type: string
       - name: heading
-        label: Заголовок
+        label: Заголовок раздела контактов
         type: string
       - name: description
-        label: Описание
+        label: Описание портфолио
         type: text
       - name: discord
-        label: Ссылка Discord
+        label: Личный Discord
         type: string
+        description: Ник (например, nef1c) или ссылка вида https://discord.com/users/123456789
       - name: telegram
-        label: Ссылка Telegram
+        label: Личный Telegram
         type: string
+        description: Ник с @ (например, @username) или ссылка https://t.me/username
+      - name: discord_server
+        label: Discord-сервер
+        type: string
+        description: Ссылка-приглашение https://discord.gg/... или https://discord.com/invite/...
+      - name: telegram_channel
+        label: Telegram-канал
+        type: string
+        description: Ник канала с @ или ссылка https://t.me/...
       - name: title
         label: Заголовок вкладки
         type: string

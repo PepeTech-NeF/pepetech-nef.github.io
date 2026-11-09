@@ -46,7 +46,7 @@ let index = 0;
 
 function showImage() {
   viewerImage.src = images[index];
-  viewerImage.alt = viewerTitle.textContent + ' — фото ' + (index + 1);
+  viewerImage.alt = viewerTitle.textContent + ' - фото ' + (index + 1);
   counter.textContent = (index + 1) + ' / ' + images.length;
   prev.hidden = images.length < 2;
   next.hidden = images.length < 2;
@@ -69,3 +69,16 @@ viewer.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft' && images.length > 1) prev.click();
   if (event.key === 'ArrowRight' && images.length > 1) next.click();
 });
+
+for (const button of document.querySelectorAll('[data-copy-contact]')) {
+  button.addEventListener('click', async () => {
+    const status = button.querySelector('[data-copy-status]');
+    try {
+      await navigator.clipboard.writeText(button.dataset.copyContact);
+      status.textContent = 'Скопировано';
+      window.setTimeout(() => { status.textContent = 'Копировать'; }, 1800);
+    } catch {
+      status.textContent = 'Не удалось скопировать';
+    }
+  });
+}

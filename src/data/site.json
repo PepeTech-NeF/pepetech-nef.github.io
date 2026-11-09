@@ -1,8 +1,10 @@
 {
-  "brand": "PepeLand",
-  "heading": "Портфолио",
-  "description": "Техника на сервере PepeLand.",
+  "brand": "PepeTech",
+  "heading": "Контакты",
+  "description": "Военная техника и не только. Авторские постройки nef1c на сервере PepeLand.",
   "discord": "",
   "telegram": "",
-  "title": "Портфолио — PepeLand"
+  "title": "PepeTech - портфолио техники nef1c",
+  "discord_server": "",
+  "telegram_channel": ""
 }
