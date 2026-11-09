@@ -51,45 +51,39 @@ a { color: inherit; text-decoration: none; }
 }
 .brand-lockup { display: flex; flex-direction: column; gap: 5px; }
 .brand-name { font-size: 22px; font-weight: 700; letter-spacing: -.05em; line-height: 1; }
-.header-context, .eyebrow, .cover-cta {
+.eyebrow, .cover-cta {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 .brand-caption { color: #c3c9c3; font-size: 13px; font-weight: 520; letter-spacing: 0; line-height: 1.35; }
-.header-right { display: flex; align-items: center; justify-content: flex-end; gap: 30px; }
-.header-context { font-size: 12px; color: var(--muted); letter-spacing: .1em; white-space: nowrap; }
-.contact-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.link { padding: 10px 13px; border: 1px solid var(--line); color: var(--text); font-size: 13px; transition: border-color .2s, background .2s; }
-.link:hover { background: var(--surface-hover); border-color: #69716d; }
 
-/* Project contacts */
+/* Contacts */
 .contact-section {
   display: grid; grid-template-columns: minmax(0, 1fr) 340px;
-  align-items: end; gap: 56px; padding: 80px 0 90px;
+  align-items: center; gap: 56px; padding: 72px 0 86px;
 }
 .eyebrow {
-  display: flex; align-items: center; gap: 12px;
+  display: flex; align-items: center;
   margin: 0 0 27px; color: var(--muted); font-size: 12px;
   font-weight: 500; letter-spacing: .11em; line-height: 1.4;
 }
-.eyebrow-line { width: 23px; height: 1px; background: var(--accent); flex-shrink: 0; }
 h1 {
-  margin: 0 0 22px; font-size: clamp(50px, 6.5vw, 80px);
+  margin: 0; font-size: clamp(50px, 6.5vw, 80px);
   line-height: 1; font-weight: 600; letter-spacing: -.07em;
 }
-.contact-note { color: #b3b7b4; font-size: 16px; line-height: 1.65; margin: 0; }
-.contact-methods { border-top: 1px solid var(--line); }
-.contact-label {
-  margin: 0; padding: 15px 0; border-bottom: 1px solid var(--line);
-  color: var(--muted); font: 11px ui-monospace, SFMono-Regular, Consolas, monospace;
-  letter-spacing: .11em;
-}
+.contact-methods { min-width: 0; border-top: 1px solid var(--line); }
 .contact-options { display: grid; }
 .contact-option {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--line);
-  font-size: 15px; transition: color .18s;
+  display: grid; grid-template-columns: minmax(98px, 1fr) minmax(0, 1.2fr) auto;
+  align-items: center; width: 100%; gap: 10px;
+  padding: 16px 0; border: 0; border-bottom: 1px solid var(--line);
+  background: transparent; color: var(--text); text-align: left;
+  transition: color .18s;
 }
 .contact-option:hover { color: var(--accent); }
+.contact-platform { font-size: 14px; font-weight: 550; }
+.contact-detail { font-size: 13px; color: #bac1ba; overflow-wrap: anywhere; }
+.contact-action { font-size: 12px; color: var(--muted); text-align: right; white-space: nowrap; }
+.contact-option:hover .contact-action { color: var(--accent); }
 .contacts-empty {
   padding: 17px 0; border-bottom: 1px solid var(--line);
   margin: 0; color: var(--subtle); font-size: 14px; line-height: 1.6;
@@ -102,7 +96,7 @@ h1 {
 }
 .catalog-kicker { margin-bottom: 13px; font-size: 11px; }
 .catalog-head h2 { display: flex; align-items: start; gap: 13px; font-size: clamp(32px, 4vw, 50px); line-height: 1.05; font-weight: 560; letter-spacing: -.055em; margin: 0; }
-.catalog-subline { margin: 0 0 5px; color: var(--muted); font-size: 14px; }
+.catalog-subline { margin: 0 0 5px; max-width: 420px; color: var(--muted); font-size: 14px; line-height: 1.6; text-align: right; }
 
 .toolbar {
   display: flex; justify-content: space-between; align-items: start; gap: 24px;
@@ -194,7 +188,6 @@ h1 {
 #next { right: 12px; }
 .viewer-foot { display: flex; justify-content: space-between; align-items: center; gap: 15px; padding: 18px 22px; border-top: 1px solid var(--line); }
 .counter { color: var(--muted); font-size: 13px; }
-.viewer-foot .link { background: #242a27; }
 
 @media (max-width: 1150px) {
   .contact-section { grid-template-columns: minmax(0, 1fr) 280px; gap: 30px; }
@@ -216,16 +209,11 @@ h1 {
   .brand { gap: 11px; }
   .brand-name { font-size: 19px; }
   .brand-caption { font-size: 12px; }
-  .header-context { font-size: 9px; }
-  .header-right { gap: 8px; }
   .contact-section { padding: 57px 0 65px; gap: 30px; }
-  .eyebrow { margin-bottom: 25px; font-size: 10px; }
   h1 { margin-bottom: 18px; font-size: clamp(46px, 11vw, 68px); }
-  .contact-note { font-size: 15px; }
-  .header-context { display: none; }
   .catalog-head { align-items: start; flex-direction: column; gap: 11px; padding-bottom: 24px; }
   .catalog-head h2 { font-size: 38px; }
-  .catalog-subline { font-size: 13px; }
+  .catalog-subline { font-size: 13px; text-align: left; }
   .toolbar { gap: 16px; padding: 13px 0 17px; }
   .filters { flex-wrap: nowrap; overflow-x: auto; width: calc(100vw - 17px); gap: 3px; scrollbar-width: thin; padding-right: 17px; }
   .filter { white-space: nowrap; padding: 12px; min-height: 44px; flex-shrink: 0; }

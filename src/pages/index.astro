@@ -1,5 +1,6 @@
 ---
 import site from '../data/site.json';
+import { getContacts } from '../lib/contacts.js';
 
 const categoryFiles = import.meta.glob('../data/categories/*.json', { eager: true, import: 'default' });
 const countryFiles = import.meta.glob('../data/countries/*.json', { eager: true, import: 'default' });
@@ -28,10 +29,7 @@ const activeCategories = categoryEntries.filter((entry) => builds.some((item) =>
 const countries = [...new Set(builds.map((item) => item.country).filter(Boolean))]
   .map((code) => ({ code, label: countryLabels[code] || code }))
   .sort((a, b) => a.label.localeCompare(b.label, 'ru'));
-const contacts = [
-  { label: 'Discord', url: site.discord },
-  { label: 'Telegram', url: site.telegram },
-].filter((contact) => /^https:\/\//.test(contact.url));
+const contacts = getContacts(site);
 ---
 
 <!doctype html>
@@ -54,23 +52,30 @@ const contacts = [
             <span class="brand-caption">Проект на PepeLand 11 by nef1c</span>
           </span>
         </a>
-        <span class="header-context">MINECRAFT / PPL</span>
       </div>
     </header>
     <main class="wrap">
       <section class="contact-section" aria-labelledby="contacts-title">
         <div class="contact-copy">
-          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> СВЯЗЬ С ПРОЕКТОМ</p>
           <h1 id="contacts-title">{site.heading}</h1>
-          <p class="contact-note">Связь с автором проекта PepeTech</p>
         </div>
         <div class="contact-methods">
-          <p class="contact-label">СПОСОБЫ СВЯЗИ</p>
           {contacts.length > 0
             ? <div class="contact-options">
-                {contacts.map((contact) => <a class="contact-option" href={contact.url} target="_blank" rel="noopener noreferrer"><span>{contact.label}</span><span aria-hidden="true">↗</span></a>)}
+                {contacts.map((contact) => contact.href
+                  ? <a class="contact-option" href={contact.href} target="_blank" rel="noopener noreferrer">
+                      <span class="contact-platform">{contact.label}</span>
+                      <span class="contact-detail">{contact.detail}</span>
+                      <span class="contact-action" aria-hidden="true">↗</span>
+                    </a>
+                  : <button class="contact-option" type="button" data-copy-contact={contact.copy}
+                      aria-label={"Скопировать ник Discord " + contact.copy}>
+                      <span class="contact-platform">{contact.label}</span>
+                      <span class="contact-detail">{contact.detail}</span>
+                      <span class="contact-action" data-copy-status aria-live="polite">Копировать</span>
+                    </button>)}
               </div>
-            : <p class="contacts-empty">Контактные ссылки пока не добавлены.</p>}
+            : <p class="contacts-empty">Контакты пока не указаны.</p>}
         </div>
       </section>
       <section class="catalog" aria-label="Портфолио техники">
@@ -79,7 +84,7 @@ const contacts = [
             <p class="eyebrow catalog-kicker">РАБОТЫ / PEPELAND</p>
             <h2>Портфолио</h2>
           </div>
-          <p class="catalog-subline">Военная техника и не только</p>
+          <p class="catalog-subline">{site.description}</p>
         </div>
         <div class="toolbar">
           <div class="filters" role="group" aria-label="Категории">
@@ -133,7 +138,7 @@ const contacts = [
     <dialog class="viewer" id="viewer" aria-label="Просмотр фотографий">
       <div class="viewer-head"><h2 id="viewer-title"></h2><button class="viewer-close" id="viewer-close" type="button" aria-label="Закрыть">×</button></div>
       <div class="viewer-image-wrap"><img id="viewer-image" alt="" /><button class="viewer-nav" id="prev" type="button" aria-label="Предыдущее фото">‹</button><button class="viewer-nav" id="next" type="button" aria-label="Следующее фото">›</button></div>
-      <div class="viewer-foot"><span class="counter" id="counter"></span><div class="contact-links">{contacts.map((contact) => <a class="link" href={contact.url} target="_blank" rel="noopener noreferrer">Написать в {contact.label} ↗</a>)}</div></div>
+      <div class="viewer-foot"><span class="counter" id="counter"></span></div>
     </dialog>
     <script is:inline src={root + "/app.js"} defer></script>
   </body>
