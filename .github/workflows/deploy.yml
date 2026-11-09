@@ -25,6 +25,8 @@ jobs:
       publish: ${{ steps.mode.outputs.publish }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Check publication mode
         id: mode
         shell: bash
@@ -41,7 +43,8 @@ jobs:
         if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
         with:
           node-version: '24'
-      - run: npm install --no-audit --no-fund
+          cache: npm
+      - run: npm ci --no-audit --no-fund
         if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
       - run: npm test
         if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
