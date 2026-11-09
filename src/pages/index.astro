@@ -1,6 +1,7 @@
 ---
 import site from '../data/site.json';
 import { getContacts } from '../lib/contacts.js';
+import HeaderContact from '../components/HeaderContact.astro';
 
 const categoryFiles = import.meta.glob('../data/categories/*.json', { eager: true, import: 'default' });
 const countryFiles = import.meta.glob('../data/countries/*.json', { eager: true, import: 'default' });
@@ -52,37 +53,28 @@ const contacts = getContacts(site);
             <span class="brand-caption">Проект на PepeLand 11 by nef1c</span>
           </span>
         </a>
+        {contacts.length > 0 && <div class={`header-contact-area header-contact-count-${contacts.length}`}>
+          <nav class="header-contact-grid" aria-label="Контакты">
+            {contacts.map((contact) => <HeaderContact contact={contact} />)}
+          </nav>
+          <details class="header-contact-menu">
+            <summary class="header-menu-trigger" aria-label="Контакты" title="Контакты">
+              <svg class="header-menu-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 9 9 0 0 1-3.8-.85L3 21l1.85-5.7A9 9 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.5 8.5 0 0 1 21 11.5Z"/></svg>
+              <span class="header-menu-label">Контакты</span>
+            </summary>
+            <div class="header-mobile-panel">
+              {contacts.map((contact) => <HeaderContact contact={contact} />)}
+            </div>
+          </details>
+        </div>}
       </div>
     </header>
     <main class="wrap">
-      <section class="contact-section" aria-labelledby="contacts-title">
-        <div class="contact-copy">
-          <h1 id="contacts-title">{site.heading}</h1>
-        </div>
-        <div class="contact-methods">
-          {contacts.length > 0
-            ? <div class="contact-options">
-                {contacts.map((contact) => contact.href
-                  ? <a class="contact-option" href={contact.href} target="_blank" rel="noopener noreferrer">
-                      <span class="contact-platform">{contact.label}</span>
-                      <span class="contact-detail">{contact.detail}</span>
-                      <span class="contact-action" aria-hidden="true">↗</span>
-                    </a>
-                  : <button class="contact-option" type="button" data-copy-contact={contact.copy}
-                      aria-label={"Скопировать ник Discord " + contact.copy}>
-                      <span class="contact-platform">{contact.label}</span>
-                      <span class="contact-detail">{contact.detail}</span>
-                      <span class="contact-action" data-copy-status aria-live="polite">Копировать</span>
-                    </button>)}
-              </div>
-            : <p class="contacts-empty">Контакты пока не указаны.</p>}
-        </div>
-      </section>
       <section class="catalog" aria-label="Портфолио техники">
         <div class="catalog-head">
           <div>
             <p class="eyebrow catalog-kicker">РАБОТЫ / PEPELAND</p>
-            <h2>Портфолио</h2>
+            <h1>{site.heading}</h1>
           </div>
           <p class="catalog-subline">{site.description}</p>
         </div>
@@ -130,9 +122,19 @@ const contacts = getContacts(site);
       </section>
     </main>
     <footer class="foot">
-      <div class="wrap footer-inner">
-        <div><strong>PepeTech</strong><span>Проект nef1c · Minecraft</span></div>
-        <span>Сайт создал g_633 из Trivium</span>
+      <div class="wrap">
+        <div class="footer-content">
+          <div class="footer-identity">
+            <strong>PepeTech</strong>
+            <span>Проект nef1c · Minecraft</span>
+          </div>
+          {contacts.length > 0 && <nav class="footer-contacts" aria-label="Контакты в подвале">
+            {contacts.map((contact) => <HeaderContact contact={contact} />)}
+          </nav>}
+        </div>
+        <div class="footer-bottom">
+          <span>Сайт создал g_633 из Trivium</span>
+        </div>
       </div>
     </footer>
     <dialog class="viewer" id="viewer" aria-label="Просмотр фотографий">
