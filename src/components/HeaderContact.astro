@@ -1,0 +1,24 @@
+---
+const { contact } = Astro.props;
+---
+{contact.href
+  ? <a class="header-contact" href={contact.href} target="_blank" rel="noopener noreferrer"
+       title={contact.label + ": " + contact.detail}>
+      <span class="header-contact-name">{contact.label}</span>
+      <span class="header-contact-value">{contact.detail}</span>
+      <svg class="header-contact-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M7 17 17 7M8 7h9v9"/>
+      </svg>
+    </a>
+  : <button class="header-contact" type="button" data-copy-contact={contact.copy}
+      title={"Скопировать Discord: " + contact.copy}
+      aria-label={"Скопировать ник Discord " + contact.copy}>
+      <span class="header-contact-name">{contact.label}</span>
+      <span class="header-contact-value">{contact.detail}</span>
+      <span class="header-contact-copy-icon" aria-hidden="true">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="8" y="8" width="12" height="12" rx="1.5"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+        </svg>
+      </span>
+      <span class="sr-only" data-copy-status aria-live="polite">Копировать</span>
+    </button>}

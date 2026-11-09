@@ -117,7 +117,7 @@ content:
         label: Название проекта
         type: string
       - name: heading
-        label: Заголовок раздела контактов
+        label: Заголовок портфолио
         type: string
       - name: description
         label: Описание портфолио

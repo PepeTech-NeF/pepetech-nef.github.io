@@ -76,9 +76,25 @@ for (const button of document.querySelectorAll('[data-copy-contact]')) {
     try {
       await navigator.clipboard.writeText(button.dataset.copyContact);
       status.textContent = 'Скопировано';
-      window.setTimeout(() => { status.textContent = 'Копировать'; }, 1800);
+      button.dataset.copyState = 'success';
+      window.setTimeout(() => { status.textContent = 'Копировать'; delete button.dataset.copyState; }, 1800);
     } catch {
       status.textContent = 'Не удалось скопировать';
+      button.dataset.copyState = 'error';
+      window.setTimeout(() => { status.textContent = 'Копировать'; delete button.dataset.copyState; }, 1800);
+    }
+  });
+}
+
+const contactMenu = document.querySelector('.header-contact-menu');
+if (contactMenu) {
+  document.addEventListener('pointerdown', (event) => {
+    if (contactMenu.open && !contactMenu.contains(event.target)) contactMenu.open = false;
+  });
+  contactMenu.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      contactMenu.open = false;
+      contactMenu.querySelector('summary').focus();
     }
   });
 }
