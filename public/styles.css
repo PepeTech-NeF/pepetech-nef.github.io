@@ -35,19 +35,28 @@
 html { min-width: 320px; }
 body { margin: 0; min-height: 100vh; }
 
-/* Decorative CMS-managed stickers are behind the catalog and never capture clicks. */
+/* One CMS sticker stays in the lower-right corner of the viewport while scrolling. */
 .sticker-backdrop {
-  position: fixed; inset: 0; z-index: 0;
-  pointer-events: none; overflow: hidden; user-select: none;
+  position: fixed;
+  right: calc(18px + env(safe-area-inset-right, 0px));
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 10;
+  pointer-events: none;
+  user-select: none;
 }
 .background-sticker {
-  position: absolute; display: block; height: auto; max-width: none;
-  translate: -50% -50%;
-  opacity: .14; filter: saturate(.74);
+  display: block;
+  width: clamp(100px, 11vw, 150px);
+  max-height: min(170px, 28vh);
+  object-fit: contain;
+  opacity: .88;
 }
-body > main, body > .foot { position: relative; z-index: 1; }
 @media (max-width: 620px) {
-  .background-sticker { opacity: .10; }
+  .sticker-backdrop {
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+  .background-sticker { width: 92px; max-height: min(110px, 22vh); }
 }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
