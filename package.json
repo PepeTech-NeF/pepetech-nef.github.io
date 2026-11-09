@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "test": "node --test",
+    "test": "node --test && node --check public/stickers.js",
     "preview": "astro preview"
   },
   "dependencies": {
