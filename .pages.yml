@@ -114,10 +114,10 @@ content:
     format: json
     fields:
       - name: brand
-        label: Название
+        label: Название проекта
         type: string
       - name: heading
-        label: Заголовок
+        label: Заголовок раздела контактов
         type: string
       - name: description
         label: Описание портфолио
