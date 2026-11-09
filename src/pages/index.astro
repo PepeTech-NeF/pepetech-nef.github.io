@@ -47,39 +47,37 @@ const contacts = [
   <body>
     <header class="top">
       <div class="wrap top-inner">
-        <a class="brand" href={root + "/"} aria-label="PepeTech — на главную">
+        <a class="brand" href={root + "/"} aria-label="PepeTech - на главную">
           <span class="mark" aria-hidden="true">PT</span>
           <span class="brand-lockup">
             <span class="brand-name">{site.brand}</span>
-            <span class="brand-caption">ПРОЕКТ НА PEPELAND</span>
+            <span class="brand-caption">ПРОЕКТ НА PEPELAND 11 BY NEF1C</span>
           </span>
         </a>
-        <div class="header-right">
-          <span class="header-context">MINECRAFT / PPL</span>
-          {contacts.length > 0 && <nav class="top-links" aria-label="Контакты">
-            {contacts.map((contact) => <a class="link" href={contact.url} target="_blank" rel="noopener noreferrer">{contact.label} ↗</a>)}
-          </nav>}
-        </div>
+        <span class="header-context">MINECRAFT / PPL</span>
       </div>
     </header>
     <main class="wrap">
-      <section class="intro" aria-labelledby="intro-title">
-        <div class="intro-main">
-          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> АВТОРСКИЙ ПРОЕКТ / PEPELAND</p>
-          <h1 id="intro-title">{site.heading}</h1>
-          <p class="lead">{site.description}</p>
+      <section class="contact-section" aria-labelledby="contacts-title">
+        <div class="contact-copy">
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> СВЯЗЬ С ПРОЕКТОМ</p>
+          <h1 id="contacts-title">{site.heading}</h1>
+          <p class="contact-note">Связь с автором проекта PepeTech</p>
         </div>
-        <aside class="intro-aside" aria-label="Информация о проекте">
-          <div class="info-row"><span class="info-label">01 / АВТОР</span><span class="info-value">nef1c</span></div>
-          <div class="info-row"><span class="info-label">02 / СЕРВЕР</span><span class="info-value">PepeLand</span></div>
-          <div class="info-row"><span class="info-label">03 / ФОРМАТ</span><span class="info-value">Каталог построек</span></div>
-        </aside>
+        <div class="contact-methods">
+          <p class="contact-label">СПОСОБЫ СВЯЗИ</p>
+          {contacts.length > 0
+            ? <div class="contact-options">
+                {contacts.map((contact) => <a class="contact-option" href={contact.url} target="_blank" rel="noopener noreferrer"><span>{contact.label}</span><span aria-hidden="true">↗</span></a>)}
+              </div>
+            : <p class="contacts-empty">Контактные ссылки пока не добавлены.</p>}
+        </div>
       </section>
-      <section class="catalog" aria-label="Каталог техники">
+      <section class="catalog" aria-label="Портфолио техники">
         <div class="catalog-head">
           <div>
-            <p class="eyebrow catalog-kicker">КОЛЛЕКЦИЯ / 001</p>
-            <h2>Каталог <span class="catalog-total">{builds.length}</span></h2>
+            <p class="eyebrow catalog-kicker">РАБОТЫ / PEPELAND</p>
+            <h2>Портфолио</h2>
           </div>
           <p class="catalog-subline">Военная техника и не только</p>
         </div>
@@ -104,10 +102,9 @@ const contacts = [
           <span class="results-note">Выберите модель для просмотра</span>
         </div>
         <div class="grid" id="gallery">
-          {builds.map((item, cardIndex) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.code ?? "", item.countryLabel].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
+          {builds.map((item) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.code ?? "", item.countryLabel].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
             <button class="card-button" type="button" data-open disabled={!item.images.length} aria-label={"Открыть " + item.title}>
               <span class="cover">
-                <span class="cover-code" aria-hidden="true">{item.code || 'PT-' + String(cardIndex + 1).padStart(3, '0')}</span>
                 {item.images.length ? <img src={item.images[0]} alt={"Техника «" + item.title + "»"} loading="lazy" decoding="async" /> : <svg class="placeholder" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 5"/></svg>}
                 {item.images.length > 0 && <span class="cover-cta" aria-hidden="true">ОТКРЫТЬ <span>↗</span></span>}
               </span>
@@ -130,7 +127,7 @@ const contacts = [
     <footer class="foot">
       <div class="wrap footer-inner">
         <div><strong>PepeTech</strong><span>Проект nef1c · Minecraft</span></div>
-        <span>PepeLand / PPL</span>
+        <span>Сайт создал g_633 из Trivium</span>
       </div>
     </footer>
     <dialog class="viewer" id="viewer" aria-label="Просмотр фотографий">

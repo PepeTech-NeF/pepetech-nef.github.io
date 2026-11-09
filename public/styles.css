@@ -34,22 +34,21 @@ a { color: inherit; text-decoration: none; }
 }
 .brand-lockup { display: flex; flex-direction: column; gap: 5px; }
 .brand-name { font-size: 20px; font-weight: 700; letter-spacing: -.05em; line-height: 1; }
-.brand-caption, .header-context, .eyebrow, .info-label, .cover-code, .cover-cta, .catalog-total {
+.brand-caption, .header-context, .eyebrow, .cover-cta {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 .brand-caption { color: var(--subtle); font-size: 9px; font-weight: 500; letter-spacing: .105em; }
 .header-right { display: flex; align-items: center; justify-content: flex-end; gap: 30px; }
 .header-context { font-size: 11px; color: var(--muted); letter-spacing: .1em; white-space: nowrap; }
-.top-links, .contact-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.contact-links { display: flex; gap: 8px; flex-wrap: wrap; }
 .link { padding: 10px 13px; border: 1px solid var(--line); color: var(--text); font-size: 12px; transition: border-color .2s, background .2s; }
 .link:hover { background: var(--surface-hover); border-color: #69716d; }
 
-.intro {
-  padding: 95px 0 104px;
-  display: grid; grid-template-columns: minmax(0, 1fr) 250px;
-  align-items: end; gap: 68px;
+/* Project contacts */
+.contact-section {
+  display: grid; grid-template-columns: minmax(0, 1fr) 340px;
+  align-items: end; gap: 56px; padding: 80px 0 90px;
 }
-.intro-main { min-width: 0; }
 .eyebrow {
   display: flex; align-items: center; gap: 12px;
   margin: 0 0 27px; color: var(--muted); font-size: 11px;
@@ -57,16 +56,27 @@ a { color: inherit; text-decoration: none; }
 }
 .eyebrow-line { width: 23px; height: 1px; background: var(--accent); flex-shrink: 0; }
 h1 {
-  max-width: 910px; margin: 0 0 34px;
-  font-size: clamp(56px, 7.8vw, 112px); line-height: .98;
-  font-weight: 600; letter-spacing: -.075em;
-  text-wrap: balance;
+  margin: 0 0 22px; font-size: clamp(50px, 6.5vw, 80px);
+  line-height: 1; font-weight: 600; letter-spacing: -.07em;
 }
-.lead { max-width: 620px; margin: 0; color: #b3b7b4; font-size: 17px; line-height: 1.75; }
-.intro-aside { border-top: 1px solid var(--line); padding-top: 5px; }
-.info-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--line); padding: 18px 0; }
-.info-label { color: var(--subtle); font-size: 10px; letter-spacing: .07em; white-space: nowrap; }
-.info-value { color: #dedfdb; font-size: 13px; text-align: right; }
+.contact-note { color: #b3b7b4; font-size: 15px; line-height: 1.65; margin: 0; }
+.contact-methods { border-top: 1px solid var(--line); }
+.contact-label {
+  margin: 0; padding: 15px 0; border-bottom: 1px solid var(--line);
+  color: var(--muted); font: 10px ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .11em;
+}
+.contact-options { display: grid; }
+.contact-option {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--line);
+  font-size: 14px; transition: color .18s;
+}
+.contact-option:hover { color: var(--accent); }
+.contacts-empty {
+  padding: 17px 0; border-bottom: 1px solid var(--line);
+  margin: 0; color: var(--subtle); font-size: 13px; line-height: 1.6;
+}
 
 .catalog { margin: 0; }
 .catalog-head {
@@ -75,7 +85,6 @@ h1 {
 }
 .catalog-kicker { margin-bottom: 13px; font-size: 10px; }
 .catalog-head h2 { display: flex; align-items: start; gap: 13px; font-size: clamp(30px, 4vw, 47px); line-height: 1.05; font-weight: 560; letter-spacing: -.055em; margin: 0; }
-.catalog-total { margin-top: 2px; color: var(--subtle); font-size: 13px; font-weight: 500; letter-spacing: -.02em; }
 .catalog-subline { margin: 0 0 5px; color: var(--muted); font-size: 13px; }
 
 .toolbar {
@@ -122,12 +131,11 @@ h1 {
 .cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .card-button:not(:disabled):hover .cover, .card-button:focus-visible .cover { border-color: #acb9ae; }
 .card-button:not(:disabled):hover .cover img { transform: scale(1.025); }
-.cover-code, .cover-cta {
+.cover-cta {
   display: inline-flex; align-items: center; position: absolute; z-index: 2;
   background: #0e1110db; color: #d9ddda; border: 1px solid #515955;
   font-size: 10px; line-height: 1; letter-spacing: .075em;
 }
-.cover-code { top: 13px; left: 13px; padding: 9px 10px; }
 .cover-cta {
   right: 13px; bottom: 13px; gap: 13px; padding: 9px 11px;
   opacity: 0; transform: translateY(5px);
@@ -172,7 +180,7 @@ h1 {
 .viewer-foot .link { background: #242a27; }
 
 @media (max-width: 1150px) {
-  .intro { grid-template-columns: minmax(0, 1fr) 220px; gap: 36px; }
+  .contact-section { grid-template-columns: minmax(0, 1fr) 280px; gap: 30px; }
   .toolbar { flex-direction: column; gap: 13px; }
   .tools { width: 100%; }
   .search { flex: 1; width: auto; max-width: 340px; }
@@ -180,13 +188,7 @@ h1 {
 
 @media (max-width: 900px) {
   .wrap { width: min(100% - 48px, 1280px); }
-  .intro { grid-template-columns: 1fr; padding: 75px 0 80px; gap: 48px; }
-  h1 { max-width: 800px; }
-  .intro-aside { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .info-row { display: flex; flex-direction: column; justify-content: start; gap: 10px; padding: 17px 12px; }
-  .info-row:first-child { padding-left: 0; }
-  .info-row:last-child { padding-right: 0; }
-  .info-value { text-align: left; }
+  .contact-section { grid-template-columns: 1fr; padding: 70px 0 74px; gap: 34px; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 16px; }
 }
 
@@ -199,14 +201,11 @@ h1 {
   .brand-caption { font-size: 8px; }
   .header-context { font-size: 9px; }
   .header-right { gap: 8px; }
-  .top-links { display: none; }
-  .intro { padding: 62px 0 72px; gap: 43px; }
+  .contact-section { padding: 57px 0 65px; gap: 30px; }
   .eyebrow { margin-bottom: 25px; font-size: 9px; }
-  h1 { margin-bottom: 27px; font-size: clamp(48px, 11.2vw, 70px); line-height: 1; }
-  .lead { font-size: 15px; line-height: 1.7; }
-  .info-row { padding-top: 14px; padding-bottom: 14px; }
-  .info-label { font-size: 8px; white-space: normal; }
-  .info-value { font-size: 11px; }
+  h1 { margin-bottom: 18px; font-size: clamp(46px, 11vw, 68px); }
+  .contact-note { font-size: 14px; }
+  .header-context { display: none; }
   .catalog-head { align-items: start; flex-direction: column; gap: 11px; padding-bottom: 24px; }
   .catalog-head h2 { font-size: 36px; }
   .catalog-subline { font-size: 12px; }

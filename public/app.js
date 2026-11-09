@@ -46,7 +46,7 @@ let index = 0;
 
 function showImage() {
   viewerImage.src = images[index];
-  viewerImage.alt = viewerTitle.textContent + ' — фото ' + (index + 1);
+  viewerImage.alt = viewerTitle.textContent + ' - фото ' + (index + 1);
   counter.textContent = (index + 1) + ' / ' + images.length;
   prev.hidden = images.length < 2;
   next.hidden = images.length < 2;
