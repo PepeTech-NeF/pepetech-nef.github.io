@@ -15,10 +15,11 @@
 
 ## Локальный запуск
 
-Требуется Node.js 22.12 или новее.
+Требуется Node.js 22.23.4 или новее.
 
 ```bash
-npm install
+npm ci
+npm test
 npm run dev
 npm run build
 ```
