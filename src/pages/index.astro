@@ -122,9 +122,19 @@ const contacts = getContacts(site);
       </section>
     </main>
     <footer class="foot">
-      <div class="wrap footer-inner">
-        <div><strong>PepeTech</strong><span>Проект nef1c · Minecraft</span></div>
-        <span>Сайт создал g_633 из Trivium</span>
+      <div class="wrap">
+        <div class="footer-content">
+          <div class="footer-identity">
+            <strong>PepeTech</strong>
+            <span>Проект nef1c · Minecraft</span>
+          </div>
+          {contacts.length > 0 && <nav class="footer-contacts" aria-label="Контакты в подвале">
+            {contacts.map((contact) => <HeaderContact contact={contact} />)}
+          </nav>}
+        </div>
+        <div class="footer-bottom">
+          <span>Сайт создал g_633 из Trivium</span>
+        </div>
       </div>
     </footer>
     <dialog class="viewer" id="viewer" aria-label="Просмотр фотографий">

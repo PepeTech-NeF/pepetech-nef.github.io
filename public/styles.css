@@ -166,10 +166,17 @@ a { color: inherit; text-decoration: none; }
 .empty strong { font-size: 18px; font-weight: 550; }
 .empty p { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
 
-.foot { margin-top: 120px; border-top: 1px solid var(--line); padding: 35px 0 52px; }
-.footer-inner { display: flex; align-items: start; justify-content: space-between; gap: 24px; color: var(--muted); font-size: 13px; }
-.footer-inner > div { display: flex; flex-direction: column; gap: 8px; }
-.footer-inner strong { color: var(--text); font-weight: 650; font-size: 15px; letter-spacing: -.025em; }
+.foot { margin-top: 120px; border-top: 1px solid var(--line); padding: 35px 0 40px; }
+.footer-content {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+  align-items: start; gap: 32px; color: var(--muted); font-size: 13px;
+}
+.footer-identity { display: flex; flex-direction: column; gap: 8px; }
+.footer-identity strong { color: var(--text); font-weight: 650; font-size: 15px; letter-spacing: -.025em; }
+.footer-contacts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.footer-content:not(:has(.footer-contacts)) { grid-template-columns: 1fr; }
+.footer-contacts:has(> :only-child) { grid-template-columns: 1fr; width: min(272px, 100%); justify-self: end; }
+.footer-bottom { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 20px; color: var(--muted); font-size: 12px; }
 
 .viewer {
   width: min(1060px, calc(100% - 28px)); max-height: calc(100% - 28px);
@@ -220,6 +227,8 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 900px) {
   .wrap { width: min(100% - 48px, 1280px); }
   .catalog { padding-top: 55px; }
+  .footer-content { grid-template-columns: 1fr; gap: 24px; }
+  .footer-contacts:has(> :only-child) { justify-self: start; }
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 38px 16px; }
 }
 
@@ -249,8 +258,10 @@ a { color: inherit; text-decoration: none; }
   .card-meta { margin-top: 12px; }
   .card-title { font-size: 19px; }
   .card-description { margin-top: 8px; }
-  .foot { margin-top: 80px; padding: 28px 0 36px; }
-  .footer-inner { font-size: 11px; }
+  .foot { margin-top: 80px; padding: 28px 0 32px; }
+  .footer-contacts { grid-template-columns: 1fr; }
+  .footer-contacts:has(> :only-child) { width: 100%; }
+  .footer-bottom { margin-top: 24px; font-size: 11px; }
   .viewer-head, .viewer-foot { padding: 13px 14px; }
   .viewer-foot { flex-direction: column; align-items: start; }
   .viewer h2 { font-size: 15px; }
