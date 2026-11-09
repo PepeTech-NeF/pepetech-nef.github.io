@@ -99,7 +99,7 @@ const contacts = getContacts(site);
           <span class="results-note">Выберите модель для просмотра</span>
         </div>
         <div class="grid" id="gallery">
-          {builds.map((item) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.code ?? "", item.countryLabel].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
+          {builds.map((item) => <article class="card" data-card data-category={item.category} data-country={item.country} data-search={[item.title, item.description ?? "", item.countryLabel].join(" ")} data-title={item.title} data-images={JSON.stringify(item.images)}>
             <button class="card-button" type="button" data-open disabled={!item.images.length} aria-label={"Открыть " + item.title}>
               <span class="cover">
                 {item.images.length ? <img src={item.images[0]} alt={"Техника «" + item.title + "»"} loading="lazy" decoding="async" /> : <svg class="placeholder" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m3 17 5-5 4 4 3-3 6 5"/></svg>}
