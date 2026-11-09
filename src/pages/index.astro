@@ -1,5 +1,7 @@
 ---
 import site from '../data/site.json';
+import { resolve } from 'node:path';
+import { listStickerUrls } from '../lib/stickers.js';
 import { getContacts } from '../lib/contacts.js';
 import HeaderContact from '../components/HeaderContact.astro';
 
@@ -31,6 +33,7 @@ const countries = [...new Set(builds.map((item) => item.country).filter(Boolean)
   .map((code) => ({ code, label: countryLabels[code] || code }))
   .sort((a, b) => a.label.localeCompare(b.label, 'ru'));
 const contacts = getContacts(site);
+const stickers = listStickerUrls(resolve(process.cwd(), 'public/images/Стикеры'), root);
 ---
 
 <!doctype html>
@@ -44,6 +47,7 @@ const contacts = getContacts(site);
     <link rel="stylesheet" href={root + "/styles.css"} />
   </head>
   <body>
+    <div class="sticker-backdrop" data-stickers={JSON.stringify(stickers)} aria-hidden="true"></div>
     <header class="top">
       <div class="wrap top-inner">
         <a class="brand" href={root + "/"} aria-label="PepeTech - на главную">
@@ -143,5 +147,6 @@ const contacts = getContacts(site);
       <div class="viewer-foot"><span class="counter" id="counter"></span></div>
     </dialog>
     <script is:inline src={root + "/app.js"} defer></script>
+    <script is:inline src={root + "/stickers.js"} defer></script>
   </body>
 </html>
