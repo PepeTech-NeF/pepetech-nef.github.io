@@ -20,9 +20,6 @@ content:
         label: Название
         type: string
         required: true
-      - name: code
-        label: Номер
-        type: string
       - name: category
         label: Категория
         type: reference
