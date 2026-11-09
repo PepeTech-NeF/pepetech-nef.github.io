@@ -141,3 +141,19 @@ content:
       - name: title
         label: Заголовок вкладки
         type: string
+      - name: publishing_paused
+        label: Приостановить автопубликацию
+        type: boolean
+        default: false
+        description: Изменения сохраняются в GitHub, но сайт не обновляется автоматически. Для публикации используйте кнопку «Опубликовать сейчас» или выключите паузу.
+
+actions:
+  - name: publish-now
+    label: Опубликовать сейчас
+    workflow: deploy.yml
+    ref: current
+    cancelable: false
+    confirm:
+      title: Опубликовать изменения?
+      message: Все сохранённые изменения появятся на сайте. Режим автопубликации не изменится.
+      button: Опубликовать
