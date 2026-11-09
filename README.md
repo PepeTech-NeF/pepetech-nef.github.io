@@ -18,7 +18,8 @@
 Требуется Node.js 22.12 или новее.
 
 ```bash
-npm install
+npm ci
+npm test
 npm run dev
 npm run build
 ```
