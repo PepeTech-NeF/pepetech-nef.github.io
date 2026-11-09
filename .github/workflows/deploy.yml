@@ -5,6 +5,15 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS action payload
+        required: false
+        type: string
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -12,20 +21,39 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.mode.outputs.publish }}
     steps:
       - uses: actions/checkout@v4
+      - name: Check publication mode
+        id: mode
+        shell: bash
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          elif python3 -c 'import json,sys; sys.exit(0 if json.load(open("src/data/site.json")).get("publishing_paused") is True else 1)'; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "Automatic publishing is paused."
+          else
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@v4
+        if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
         with:
           node-version: '24'
       - run: npm install --no-audit --no-fund
+        if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
+      - run: npm test
+        if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
       - run: npm run build
+        if: github.event_name == 'pull_request' || steps.mode.outputs.publish == 'true'
       - uses: actions/upload-pages-artifact@v3
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.mode.outputs.publish == 'true'
         with:
           path: dist/
 
   deploy:
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.build.outputs.publish == 'true'
     needs: build
     runs-on: ubuntu-latest
     permissions:
