@@ -78,7 +78,7 @@ const contacts = getContacts(site);
           </div>
           <p class="catalog-subline">{site.description}</p>
         </div>
-        <div class="toolbar">
+        <div class="toolbar" hidden={builds.length === 0}>
           <div class="filters" role="group" aria-label="Категории">
             <button class="filter" type="button" data-filter="all" aria-pressed="true">Все</button>
             {activeCategories.map((category) => <button class="filter" type="button" data-filter={category.code} aria-pressed="false">{category.label}</button>)}
@@ -94,7 +94,7 @@ const contacts = getContacts(site);
             </label>
           </div>
         </div>
-        <div class="results-row">
+        <div class="results-row" hidden={builds.length === 0}>
           <p class="results" id="results" aria-live="polite">Найдено: {builds.length}</p>
           <span class="results-note">Выберите модель для просмотра</span>
         </div>
