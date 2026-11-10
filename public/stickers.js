@@ -1,5 +1,4 @@
-// Pick one decorative sticker for the current page load.
-// Its fixed position and size are controlled by CSS.
+// Choose one sticker and a random position in the lower-right viewport quadrant.
 const backdrop = document.querySelector('.sticker-backdrop');
 
 if (backdrop) {
@@ -7,7 +6,7 @@ if (backdrop) {
   try {
     urls = JSON.parse(backdrop.dataset.stickers || '[]');
   } catch {
-    // Invalid or absent sticker data must not affect the catalog.
+    // Invalid sticker data must never affect the catalog.
   }
 
   if (Array.isArray(urls)) {
@@ -20,7 +19,24 @@ if (backdrop) {
       image.draggable = false;
       image.loading = 'eager';
       image.decoding = 'async';
+
+      // Keep the chosen random coordinates on viewport resize.
+      const horizontal = Math.random();
+      const vertical = Math.random();
+      const positionSticker = () => {
+        const { width, height } = image.getBoundingClientRect();
+        const compact = window.innerWidth <= 620;
+        const rightMargin = compact ? 24 : 46;
+        const bottomMargin = compact ? 30 : 50;
+        const maxRight = Math.max(rightMargin, window.innerWidth / 2 - width);
+        const maxBottom = Math.max(bottomMargin, window.innerHeight / 2 - height);
+        image.style.right = `${Math.round(rightMargin + horizontal * (maxRight - rightMargin))}px`;
+        image.style.bottom = `${Math.round(bottomMargin + vertical * (maxBottom - bottomMargin))}px`;
+      };
+
       backdrop.append(image);
+      positionSticker();
+      window.addEventListener('resize', positionSticker);
     }
   }
 }

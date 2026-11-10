@@ -35,11 +35,10 @@
 html { min-width: 320px; }
 body { margin: 0; min-height: 100vh; }
 
-/* Fixed to the viewport, always behind site content and controls. */
+/* The sticker is fixed behind the interface, anywhere in the lower-right viewport quadrant. */
 .sticker-backdrop {
   position: fixed;
-  right: calc(46px + env(safe-area-inset-right, 0px));
-  bottom: calc(50px + env(safe-area-inset-bottom, 0px));
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   user-select: none;
@@ -47,18 +46,15 @@ body { margin: 0; min-height: 100vh; }
 /* Keep every section, including the footer, above the sticker. */
 body > main, body > .foot { position: relative; z-index: 1; }
 .background-sticker {
+  position: absolute;
   display: block;
   width: clamp(100px, 11vw, 150px);
-  max-height: min(170px, 28vh);
+  height: min(170px, 28vh);
   object-fit: contain;
   opacity: .88;
 }
 @media (max-width: 620px) {
-  .sticker-backdrop {
-    right: calc(24px + env(safe-area-inset-right, 0px));
-    bottom: calc(30px + env(safe-area-inset-bottom, 0px));
-  }
-  .background-sticker { width: 92px; max-height: min(110px, 22vh); }
+  .background-sticker { width: 92px; height: min(110px, 22vh); }
 }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
