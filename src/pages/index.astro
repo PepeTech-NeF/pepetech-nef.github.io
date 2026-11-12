@@ -114,7 +114,6 @@ const stickers = listStickerUrls(resolve(process.cwd(), 'public/images/Стик�
                   <span class="card-title">{item.title}</span>
                   <span class="card-category">{categories[item.category] || item.category}{item.country ? ' / ' + item.countryLabel : ''}</span>
                 </span>
-                <span class="card-arrow" aria-hidden="true">↗</span>
               </span>
             </button>
             {item.description && <p class="card-description">{item.description}</p>}
